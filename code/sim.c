@@ -162,6 +162,7 @@ static inline int fast_next_random_move(state_t *s, int r) {
 static inline void do_batch(state_t *s, int batch, int bstart, int bcount) {
     int ri;
     find_all_sums(s);
+    START_ACTIVITY(ACTIVITY_NEXT);
     for (ri = 0; ri < bcount; ri++) {
 	int rid = ri+bstart;
 	int onid = s->rat_position[rid];
@@ -170,6 +171,7 @@ static inline void do_batch(state_t *s, int batch, int bstart, int bcount) {
 	s->rat_count[onid] -= 1;
 	s->rat_count[nnid] += 1;
     }
+    FINISH_ACTIVITY(ACTIVITY_NEXT);
     /* Update weights */
     compute_all_weights(s);
 }
